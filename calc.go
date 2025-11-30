@@ -10,11 +10,7 @@ func ErlangB(r int, a float64) float64 {
 		return 1.0
 	}
 
-	invB := 1.0
-	for k := 1; k <= r; k++ {
-		invB = 1.0 + (float64(k)/a)*invB
-	}
-	return 1.0 / invB
+	return (a * ErlangB(r-1,a))/(float64(r) + a * ErlangB(r-1,a))
 }
 
 func FindChannelsByLoss(a float64, pi float64) (int, float64) {
