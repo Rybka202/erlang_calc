@@ -167,32 +167,41 @@ func validateInput(params map[string]float64) bool {
 	}
 	
 	// Дополнительные проверки для конкретных параметров
-	if pi, ok := params["pi"]; ok {
+	pi, okPi := params["pi"]
+	if okPi {
 		if pi < 0.0001 || pi > 1 {
 			fmt.Printf("Ошибка: вероятность потерь π должна быть в диапазоне [0, 1]\n")
 			return false
 		}
 	}
 	
-	if a, ok := params["a"]; ok {
+	a, okA := params["a"]
+	if okA {
 		if a < 0.001 || a > 1000000{
 			fmt.Printf("Ошибка: a должна лежать в диапозоне [0.001; 1000000]\n")
 			return false
 		}
 	}
 	
-	if m, ok := params["m"]; ok {
+	m, okM := params["m"]
+	if okM {
 		if m < 0.0001 || m > 999900 {
 			fmt.Printf("Ошибка: m должна лежать в диапозоне [0.0001; 999900] \n")
 			return false
 		}
 	}
 	
-	if v, ok := params["v"]; ok {
+	v, okV := params["v"]
+	if okV {
 		if v < 1 || v > 100000 || math.Floor(v) != v {
 			fmt.Printf("Ошибка: v должно быть неотрицательным числом в диапозоне [1; 100000]\n")
 			return false
 		}
+	}
+
+	if okM && okV && m > v{
+		fmt.Printf("Ошибка: m должно быть меньше или равно v\n")
+		return false
 	}
 	
 	return true
